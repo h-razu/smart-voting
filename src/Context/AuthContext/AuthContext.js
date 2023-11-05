@@ -26,10 +26,8 @@ const AuthContext = ({ children }) => {
       window.ethereum != null ? new ethers.providers.Web3Provider(window.ethereum) : new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
 
     const loadContract = async () => {
-      let accounts;
-
       if (window.ethereum) {
-        accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        await window.ethereum.request({ method: "eth_requestAccounts" });
         console.log("METAMASK ACCOUNT CONNECTION SUCCESSFUL....!!!");
       } else {
         toast.error("Please Install Metamask!!!");
@@ -41,7 +39,7 @@ const AuthContext = ({ children }) => {
 
       /**
        * TO CONNECT WITH SMART CONTRACT, NEED TWO THINGS:
-       * 1. ABI: have to import from ./src/contracts folder. found after migrate smart contract
+       * 1. ABI: have to import from ./src/contractABIs folder. found after migrate smart contract
        * 2. DEPLOYED CONTRACT ADDRESS
        */
       const signer = provider.getSigner();
@@ -68,7 +66,6 @@ const AuthContext = ({ children }) => {
       // console.log(constituencyCenterContract);
 
       setState({
-        accounts: accounts,
         contract: {
           constituencyCenterContract,
           votersInfoContract,

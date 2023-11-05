@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import userImg from "../../../images/user.png";
-import { authProvider } from "../../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
+import authProvider from "../../../Context/AuthContext/AuthContext";
 
 const Header = () => {
   const { setLoggedCenter, admin, setAdmin, loggedPresidingOfficer, setLoggedPresidingOfficer, setIsPresidingOfficer } = useContext(authProvider);

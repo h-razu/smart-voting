@@ -1,16 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminDashboard from "../Layout/AdminLayout/AdminDashboard";
 import Error from "../Pages/Shared/Error/Error";
-import AddVoter from "../Pages/AddVoter/AddVoter";
 import Home from "../Pages/Home/Home";
 import AllConstituency from "../Pages/Constituency/AllConstituency/AllConstituency";
 import AllCenters from "../Pages/Center/AllCenters/AllCenters";
 import AllVoters from "../Pages/Voters/AllVoters/AllVoters";
 import AllCandidates from "../Pages/Candidates/AllCandidates/AllCandidates";
-import AdminLogin from "../Login/AdminLogin/AdminLogin";
 import AdminRoute from "../AuthRequired/AdminRoute/AdminRoute";
 import CandidatesResult from "../Pages/Result/CandidatesResult/CandidatesResult";
-import PresidingOfficerLogin from "../Login/PresidingOfficerLogin/PresidingOfficerLogin";
 import PresidingOfficerRoute from "../AuthRequired/PresidingOfficerRoute/PresidingOfficerRoute";
 import PresidingOfficerLayout from "../Layout/PresidingOfficerLayout/PresidingOfficerLayout";
 import VerifyVoter from "../Pages/PresidingOfficerDashboard/VerifyVoter/VerifyVoter";
@@ -21,6 +18,9 @@ import AllPresidingOfficers from "../Pages/PresidingOfficer/AllPresidingOfficers
 import AllParty from "../Pages/Party/AllParty/AllParty";
 import Statistics from "../Pages/Statistics/DisplayPage/Statistics";
 import AddCandidate from "../Pages/AddCandidate/AddCandidate";
+import AdminLogin from "../Pages/Login/AdminLogin/AdminLogin";
+import PresidingOfficerLogin from "../Pages/Login/PresidingOfficerLogin/PresidingOfficerLogin";
+import AllCitizen from "../Pages/AddVoter/AllCitizen/AllCitizen";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <AdminRoute>
-            <AddVoter></AddVoter>
+            <AllCitizen></AllCitizen>
           </AdminRoute>
         ),
       },

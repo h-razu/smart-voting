@@ -27,7 +27,7 @@ const AllCitizen = () => {
 
   //get all constituency from contract
   useEffect(() => {
-    const { accounts, contract } = state;
+    const { contract } = state;
 
     const getInitialData = async () => {
       let constituencyArr = [];
@@ -56,7 +56,7 @@ const AllCitizen = () => {
       setCenters(centersArray);
     };
 
-    accounts && contract && getInitialData();
+    contract && getInitialData();
   }, [state]);
 
   //get already add voter NID

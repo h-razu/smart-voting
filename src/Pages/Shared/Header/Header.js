@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import userImg from "../../../images/user.png";
 import { useNavigate } from "react-router-dom";
-import authProvider from "../../../Context/AuthContext/AuthContext";
+import { authProvider } from "../../../Context/AuthContext/AuthContext";
 
 const Header = () => {
   const { setLoggedCenter, admin, setAdmin, loggedPresidingOfficer, setLoggedPresidingOfficer, setIsPresidingOfficer } = useContext(authProvider);
@@ -41,9 +41,7 @@ const Header = () => {
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src={userImg} alt="" />
-            </div>
+            <img className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-400" src={userImg} alt="Bordered avatar" />
           </label>
           <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
             <li>{admin?.length > 0 ? admin : loggedPresidingOfficer}</li>

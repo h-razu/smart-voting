@@ -14,6 +14,7 @@ const CastingVote = () => {
   const [currentConstituencyInfo, setCurrentConstituencyInfo] = useState(null);
   const [isCast, setIsCast] = useState(false);
   const [currentConstituencyID, setCurrentConstituencyID] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //get data from local storage
   const voterNID = JSON.parse(localStorage.getItem("voter"));
@@ -111,6 +112,7 @@ const CastingVote = () => {
     // console.log(voterNID);
 
     const { contract } = state;
+    setLoading(true);
 
     const result = await contract.candidatesInfoContract?.castVoteAction(_candidateID, currentConstituencyID);
     await result.wait();
@@ -122,6 +124,7 @@ const CastingVote = () => {
       if (res.hash) {
         toast.success("Vote Casting Successful");
         setIsCast(true);
+        setLoading(false);
 
         setTimeout(() => {
           localStorage.removeItem("voter");
@@ -129,14 +132,20 @@ const CastingVote = () => {
           window.close();
         }, 5000);
       } else {
+        setLoading(false);
         toast.error("Transaction Failed....!!!");
       }
     } else {
+      setLoading(false);
       toast.error("Transaction Failed....!!!");
     }
   };
 
   if (!voterNID || candidates.length === 0) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
+  if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 

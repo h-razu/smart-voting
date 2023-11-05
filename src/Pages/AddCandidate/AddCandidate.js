@@ -31,9 +31,9 @@ const AddCandidate = () => {
       //..........get voters data
       let votersArray = [];
       const totalVoters = await contract.votersInfoContract?.getLength();
-      // console.log(totalVoters);
+      // console.log(totalVoters?.toNumber());
 
-      for (let i = 0; i < totalVoters; i++) {
+      for (let i = 0; i < totalVoters?.toNumber(); i++) {
         const data = await contract.votersInfoContract?.voters(i);
         // console.log(data);
         votersArray.push(data);
@@ -129,7 +129,7 @@ const AddCandidate = () => {
     setCandidate(null);
 
     const NID = event.target.voterNID.value;
-    console.log(NID);
+    // console.log(NID);
 
     if (existingCandidatesNID.includes(parseInt(NID))) {
       const candidate = existingCandidates?.filter((c) => c.NID === parseInt(NID));
@@ -152,12 +152,12 @@ const AddCandidate = () => {
   //adding candidate
   //==insert data for new candidate
   const insertData = async (_candidateNID, _candidateType, _partyName, _symbol, _cid, _constituencyID, _partyID) => {
-    console.log(_candidateNID);
-    console.log(_candidateType);
-    console.log(_partyName);
-    console.log(_symbol);
-    console.log(_cid);
-    console.log(_constituencyID);
+    // console.log(_candidateNID);
+    // console.log(_candidateType);
+    // console.log(_partyName);
+    // console.log(_symbol);
+    // console.log(_cid);
+    // console.log(_constituencyID);
 
     const { contract } = state;
     //write
@@ -209,11 +209,11 @@ const AddCandidate = () => {
         //upload IPFS using web3storage gateway
         if (fileInput.files.length > 0) {
           const fileName = fileInput.files[0].name;
-          console.log(fileName);
+          // console.log(fileName);
 
           const client = makeStorageClient();
           const cid = await client.put(fileInput.files);
-          console.log(cid);
+          // console.log(cid);
 
           if (cid) {
             //check
@@ -221,7 +221,7 @@ const AddCandidate = () => {
               (candidate) => candidate.cid === cid && !candidate.standingConstituency.includes(constituencyName)
             );
 
-            console.log(isAlreadyAllocate);
+            // console.log(isAlreadyAllocate);
 
             if (isAlreadyAllocate.length > 0) {
               toast.error("Symbol Already Allocated");
@@ -344,7 +344,7 @@ const AddCandidate = () => {
   };
 
   //for loading screen
-  if (existingCandidates?.length === 0 || voters?.length === 0) {
+  if (existingCandidates?.length === 0 && voters?.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (loading) {

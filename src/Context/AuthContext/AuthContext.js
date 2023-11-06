@@ -26,57 +26,61 @@ const AuthContext = ({ children }) => {
       window.ethereum != null ? new ethers.providers.Web3Provider(window.ethereum) : new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545");
 
     const loadContract = async () => {
-      if (window.ethereum) {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        console.log("METAMASK ACCOUNT CONNECTION SUCCESSFUL....!!!");
-      } else {
-        toast.error("Please Install Metamask!!!");
+      try {
+        if (window.ethereum) {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          console.log("METAMASK ACCOUNT CONNECTION SUCCESSFUL....!!!");
+
+          const signer = provider.getSigner();
+
+          /**
+           * TO CONNECT WITH SMART CONTRACT, NEED TWO THINGS:
+           * 1. ABI: have to import from ./src/contractABIs folder. found after migrate smart contract
+           * 2. DEPLOYED CONTRACT ADDRESS
+           */
+
+          const network = await provider.getNetwork();
+          const chain = await network.chainId;
+          // console.log(chain);
+
+          //get deployed network
+          const deployedNetwork1 = constituencyCenter.networks[chain];
+          const deployedNetwork2 = votersInfo.networks[chain];
+          const deployedNetwork3 = presidingOfficer.networks[chain];
+          const deployedNetwork4 = candidateInfo.networks[chain];
+          const deployedNetwork5 = politicalParty.networks[chain];
+          // console.log(deployedNetwork1.address);
+
+          // //creating  contract instance
+          const constituencyCenterContract = new ethers.Contract(deployedNetwork1.address, constituencyCenter.abi, signer);
+          const votersInfoContract = new ethers.Contract(deployedNetwork2.address, votersInfo.abi, signer);
+          const presidingOfficerContract = new ethers.Contract(deployedNetwork3.address, presidingOfficer.abi, signer);
+          const candidatesInfoContract = new ethers.Contract(deployedNetwork4.address, candidateInfo.abi, signer);
+          const politicalPartyContract = new ethers.Contract(deployedNetwork5.address, politicalParty.abi, signer);
+
+          // console.log(constituencyCenterContract);
+
+          setState({
+            contract: {
+              constituencyCenterContract,
+              votersInfoContract,
+              presidingOfficerContract,
+              candidatesInfoContract,
+              politicalPartyContract,
+            },
+          });
+
+          setIsConnected(true);
+        } else {
+          console.log("Please Install Metamask!!!");
+          alert("Metamask is not Installed...");
+          window.location.replace("/");
+        }
+      } catch (error) {
+        toast.error("Connection Problem...");
       }
-
-      window.ethereum.on("accountsChanged", () => {
-        window.location.reload();
-      });
-
-      /**
-       * TO CONNECT WITH SMART CONTRACT, NEED TWO THINGS:
-       * 1. ABI: have to import from ./src/contractABIs folder. found after migrate smart contract
-       * 2. DEPLOYED CONTRACT ADDRESS
-       */
-      const signer = provider.getSigner();
-
-      const network = await provider.getNetwork();
-      const chain = await network.chainId;
-      // console.log(chain);
-
-      //get deployed network
-      const deployedNetwork1 = constituencyCenter.networks[chain];
-      const deployedNetwork2 = votersInfo.networks[chain];
-      const deployedNetwork3 = presidingOfficer.networks[chain];
-      const deployedNetwork4 = candidateInfo.networks[chain];
-      const deployedNetwork5 = politicalParty.networks[chain];
-      // console.log(deployedNetwork1.address);
-
-      // //creating  contract instance
-      const constituencyCenterContract = new ethers.Contract(deployedNetwork1.address, constituencyCenter.abi, signer);
-      const votersInfoContract = new ethers.Contract(deployedNetwork2.address, votersInfo.abi, signer);
-      const presidingOfficerContract = new ethers.Contract(deployedNetwork3.address, presidingOfficer.abi, signer);
-      const candidatesInfoContract = new ethers.Contract(deployedNetwork4.address, candidateInfo.abi, signer);
-      const politicalPartyContract = new ethers.Contract(deployedNetwork5.address, politicalParty.abi, signer);
-
-      // console.log(constituencyCenterContract);
-
-      setState({
-        contract: {
-          constituencyCenterContract,
-          votersInfoContract,
-          presidingOfficerContract,
-          candidatesInfoContract,
-          politicalPartyContract,
-        },
-      });
-
-      setIsConnected(true);
     };
+
     (admin || isPresidingOfficer || loggedPresidingOfficer || castingProcess) && provider && loadContract();
   }, [admin, isPresidingOfficer, loggedPresidingOfficer, castingProcess]);
 

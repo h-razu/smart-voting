@@ -28,7 +28,7 @@ const Home = () => {
       </div>
       <div className="bg-white bg-opacity-60 rounded-lg shadow-lg overflow-hidden w-full md:w-4/5 lg:w-3/5 xl:w-2/5">
         <div className="flex md:flex-row flex-col">
-          <div className="md:w-1/2 p-8">
+          <div className="md:w-1/2 p-8 flex items-center justify-around flex-col">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Panel</h1>
             <p className="text-gray-800 mb-4">This panel is for the Admin. To go the next page click on login.</p>
             <Link to="adminLogin">
@@ -36,7 +36,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="md:w-1/2 p-8">
+          <div className="md:w-1/2 p-8 flex items-center justify-around flex-col">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Presiding Officer</h1>
             <p className="text-gray-800 mb-4">This panel is for the Presiding Officer. To go the next page click on login.</p>
 

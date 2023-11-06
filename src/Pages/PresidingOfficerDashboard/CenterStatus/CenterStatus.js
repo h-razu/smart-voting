@@ -7,7 +7,7 @@ const CenterStatus = () => {
       <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center">
           <h1 class="mb-4 text-5xl tracking-tight font-extrabold lg:text-7xl text-primary-600">Center is Closed</h1>
-          <Link to="/">
+          <Link to="/smart-voting">
             <div class="mt-10 space-y-20">
               <div class="w-full">
                 <div class="flex-1 h-full w-96 mx-auto">

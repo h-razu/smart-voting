@@ -39,12 +39,12 @@ const PresidingOfficerLogin = () => {
           localStorage.setItem("status", JSON.stringify(true));
           setLoggedPresidingOfficer(data.name);
           setLoggedCenter(data.centerID.toNumber());
-          navigate("/presidingOfficer", { replace: true });
+          navigate("/smart-voting/presidingOfficer", { replace: true });
 
           event.target.id.value = "";
           event.target.password.value = "";
         } else {
-          navigate("/centerInactive", { replace: true });
+          navigate("/smart-voting/centerInactive", { replace: true });
         }
       }
     } else {

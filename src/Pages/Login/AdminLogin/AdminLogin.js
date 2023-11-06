@@ -21,7 +21,7 @@ const AdminLogin = () => {
     if (adminLogin(id, pass)) {
       localStorage.setItem("admin", JSON.stringify("Md Razu"));
       setAdmin("Md. Razu");
-      navigate("/admin", { replace: true });
+      navigate("/smart-voting/admin", { replace: true });
     } else {
       toast.error("Wrong!!!");
     }

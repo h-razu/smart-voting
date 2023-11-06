@@ -24,16 +24,16 @@ import AllCitizen from "../Pages/AddVoter/AllCitizen/AllCitizen";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/smart-voting",
     element: <Home></Home>,
     errorElement: <Error></Error>,
   },
   {
-    path: "/adminLogin",
+    path: "/smart-voting/adminLogin",
     element: <AdminLogin></AdminLogin>,
   },
   {
-    path: "/admin",
+    path: "/smart-voting/admin",
     element: (
       <AdminRoute>
         <AdminDashboard></AdminDashboard>
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/admin",
+        path: "/smart-voting/admin",
         element: (
           <AdminRoute>
             <AllCitizen></AllCitizen>
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/allConstituency",
+        path: "/smart-voting/admin/allConstituency",
         element: (
           <AdminRoute>
             <AllConstituency></AllConstituency>
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/allCenters",
+        path: "/smart-voting/admin/allCenters",
         element: (
           <AdminRoute>
             <AllCenters></AllCenters>
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/allParty",
+        path: "/smart-voting/admin/allParty",
         element: (
           <AdminRoute>
             <AllParty></AllParty>
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/allVoters",
+        path: "/smart-voting/admin/allVoters",
         element: (
           <AdminRoute>
             <AllVoters></AllVoters>
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/addCandidate",
+        path: "/smart-voting/admin/addCandidate",
         element: (
           <AdminRoute>
             <AddCandidate></AddCandidate>
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/allCandidates",
+        path: "/smart-voting/admin/allCandidates",
         element: (
           <AdminRoute>
             <AllCandidates></AllCandidates>
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/AllPresidingOfficers",
+        path: "/smart-voting/admin/AllPresidingOfficers",
         element: (
           <AdminRoute>
             <AllPresidingOfficers></AllPresidingOfficers>
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/result",
+        path: "/smart-voting/admin/result",
         element: (
           <AdminRoute>
             <CandidatesResult></CandidatesResult>
@@ -113,7 +113,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/statistics",
+        path: "/smart-voting/admin/statistics",
         element: (
           <AdminRoute>
             <Statistics></Statistics>
@@ -123,11 +123,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/presidingOfficerLogin",
+    path: "/smart-voting/presidingOfficerLogin",
     element: <PresidingOfficerLogin></PresidingOfficerLogin>,
   },
   {
-    path: "/presidingOfficer",
+    path: "/smart-voting/presidingOfficer",
     element: (
       <PresidingOfficerRoute>
         <PresidingOfficerLayout></PresidingOfficerLayout>
@@ -135,7 +135,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/presidingOfficer",
+        path: "/smart-voting/presidingOfficer",
         element: (
           <PresidingOfficerRoute>
             <VotersDisplay></VotersDisplay>
@@ -143,7 +143,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/presidingOfficer/verifyVoter",
+        path: "/smart-voting/presidingOfficer/verifyVoter",
         element: (
           <PresidingOfficerRoute>
             <VerifyVoter></VerifyVoter>
@@ -153,15 +153,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/castingVote",
+    path: "/smart-voting/castingVote",
     element: <CastingVote></CastingVote>,
   },
   {
-    path: "/centerInactive",
+    path: "/smart-voting/centerInactive",
     element: <CenterStatus></CenterStatus>,
   },
   {
-    path: "*",
+    path: "/smart-voting/*",
     element: <Error></Error>,
   },
 ]);

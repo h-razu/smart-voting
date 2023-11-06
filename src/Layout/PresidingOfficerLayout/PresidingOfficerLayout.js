@@ -16,12 +16,12 @@ const PresidingOfficerLayout = () => {
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-2 w-80 lg:mt-1 text-base-content">
             <li>
-              <Link to="/presidingOfficer">
+              <Link to="/smart-voting/presidingOfficer">
                 <span className="font-bold">Voters</span>
               </Link>
             </li>
             <li>
-              <Link to="/presidingOfficer/verifyVoter">
+              <Link to="/smart-voting/presidingOfficer/verifyVoter">
                 <span className="font-bold">Verify Voter</span>
               </Link>
             </li>

@@ -74,7 +74,7 @@ const AuthContext = ({ children }) => {
         } else {
           console.log("Please Install Metamask!!!");
           alert("Metamask is not Installed...");
-          window.location.replace("/");
+          window.location.replace("/smart-voting");
         }
       } catch (error) {
         toast.error("Connection Problem...");

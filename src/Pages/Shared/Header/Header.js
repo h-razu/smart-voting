@@ -23,7 +23,7 @@ const Header = () => {
       setIsPresidingOfficer(false);
     }
 
-    navigate("/", { replace: true });
+    navigate("/smart-voting", { replace: true });
   };
 
   return (

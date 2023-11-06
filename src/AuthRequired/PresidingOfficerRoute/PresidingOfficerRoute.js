@@ -24,7 +24,7 @@ const PresidingOfficerRoute = ({ children }) => {
     setLoggedCenter(null);
   }
 
-  return <Navigate to="/" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/smart-voting" state={{ from: location }} replace></Navigate>;
 };
 
 export default PresidingOfficerRoute;

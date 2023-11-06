@@ -144,7 +144,7 @@ const VotersDisplay = () => {
                       Voted
                     </label>
                   ) : (
-                    <Link to="/castingVote" target="_blank">
+                    <Link to="/smart-voting/castingVote" target="_blank">
                       <label
                         type="button"
                         className="text-md font-bold text-green-700  hover:underline hover:cursor-pointer"

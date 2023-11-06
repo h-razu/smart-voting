@@ -15,7 +15,7 @@ const Error = () => {
       <p className="text-2xl text-red-700">
         <i>{error.statusText || error.message}</i>
       </p>
-      <Link to="/">
+      <Link to="/smart-voting">
         <div class="mt-10 space-y-20">
           <div class="w-full">
             <div class="flex-1 h-full w-96 mx-auto">

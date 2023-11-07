@@ -13,9 +13,11 @@ const AllCenters = () => {
 
   const [constituency, setConstituency] = useState([]);
   const [centers, setCenters] = useState([]);
+  const [allCenter, setAllCenter] = useState([]);
   const [addCenterStatus, setAddCenterStatus] = useState(false);
   const [selectedCenter, setSelectedCenter] = useState(null);
   const [editData, setEditData] = useState({});
+  const [option, setOption] = useState("All Constituency");
 
   //get all constituency from contract to display in dropdown as option
   useEffect(() => {
@@ -53,6 +55,7 @@ const AllCenters = () => {
         // console.log(data.centerID.toNumber());
         centersArray.push(data);
       }
+      setAllCenter(centersArray);
       setCenters(centersArray);
     };
     contract && getCenterFromContract();
@@ -81,6 +84,18 @@ const AllCenters = () => {
       }
     }
   };
+
+  //constituency wise center
+  useEffect(() => {
+    setCenters([]);
+
+    if (option === "All Constituency") {
+      setCenters(allCenter);
+    } else {
+      const filterNumOfCenter = allCenter?.filter((center) => center.constituencyName === option);
+      setCenters(filterNumOfCenter);
+    }
+  }, [option, allCenter]);
 
   //for closing add modal
   const closeAddModal = () => {
@@ -184,15 +199,35 @@ const AllCenters = () => {
           <div>
             <h2>Total Center: {centers?.length}</h2>
           </div>
-          <div className="relative">
-            <label
-              type="button"
-              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-              onClick={() => setAddCenterStatus(true)}
-              htmlFor="add-center-modal"
-            >
-              Add New Center
-            </label>
+          <div className="flex">
+            <div className="relative">
+              <label
+                type="button"
+                className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-3.5 mr-2 mb-2"
+                onClick={() => setAddCenterStatus(true)}
+                htmlFor="add-center-modal"
+              >
+                Add New Center
+              </label>
+            </div>
+            <div className="relative">
+              <div className="form-control w-full">
+                <select id="dropDown" required className="select select-bordered w-full mb-1" onChange={(e) => setOption(e.target.value)}>
+                  <option selected value={"All Constituency"}>
+                    All Constituency
+                  </option>
+                  {constituency?.length > 0 ? (
+                    constituency.map((d, index) => (
+                      <option key={index} value={d.constituencyName}>
+                        {d.constituencyName}
+                      </option>
+                    ))
+                  ) : (
+                    <option></option>
+                  )}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <table id="peopleTable" className="w-full text-sm text-gray-500 text-center">
@@ -228,11 +263,7 @@ const AllCenters = () => {
                 </td>
                 <td className="px-6 py-4">
                   <div className="text-base text-center">
-                    {center.status ? (
-                      <input type="checkbox" className="toggle" checked onChange={() => changeStatus(center.centerID.toNumber())} />
-                    ) : (
-                      <input type="checkbox" className="toggle" onChange={() => changeStatus(center.centerID.toNumber())} />
-                    )}
+                    <input type="checkbox" className="toggle" checked={center?.status} onChange={() => changeStatus(center.centerID.toNumber())} />
                   </div>
                 </td>
                 <td className="px-6 py-4">

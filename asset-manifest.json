@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/smart-voting/static/css/main.fa65e9e1.css",
-    "main.js": "/smart-voting/static/js/main.af0c71f6.js",
+    "main.css": "/smart-voting/static/css/main.5e1a4cc4.css",
+    "main.js": "/smart-voting/static/js/main.e3cf1350.js",
     "static/js/787.4294053f.chunk.js": "/smart-voting/static/js/787.4294053f.chunk.js",
     "static/media/bgImage.jpg": "/smart-voting/static/media/bgImage.d9db3d2a2d575f327dbf.jpg",
     "static/media/independent.png": "/smart-voting/static/media/independent.886b98e12a8044fdcc62.png",
     "static/media/user.png": "/smart-voting/static/media/user.a6143582309785dca610.png",
     "static/media/voters.png": "/smart-voting/static/media/voters.c88dc3881f02a958de22.png",
     "index.html": "/smart-voting/index.html",
-    "main.fa65e9e1.css.map": "/smart-voting/static/css/main.fa65e9e1.css.map",
-    "main.af0c71f6.js.map": "/smart-voting/static/js/main.af0c71f6.js.map",
+    "main.5e1a4cc4.css.map": "/smart-voting/static/css/main.5e1a4cc4.css.map",
+    "main.e3cf1350.js.map": "/smart-voting/static/js/main.e3cf1350.js.map",
     "787.4294053f.chunk.js.map": "/smart-voting/static/js/787.4294053f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fa65e9e1.css",
-    "static/js/main.af0c71f6.js"
+    "static/css/main.5e1a4cc4.css",
+    "static/js/main.e3cf1350.js"
   ]
 }

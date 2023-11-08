@@ -12,11 +12,14 @@ const AllVoters = () => {
   const { state } = useContext(authProvider);
 
   const [voters, setVoters] = useState([]);
+  const [allVoters, setAllVoters] = useState([]);
   const [centersInfo, setCentersInfo] = useState([]);
+  const [constituencyInfo, setConstituencyInfo] = useState([]);
   const [selectedVoter, setSelectedVoter] = useState(null);
   const [editVoter, setEditVoter] = useState(null);
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [existingCandidatesNID, setExistingCandidatesNID] = useState([]);
+  const [option, setOption] = useState("All Constituency");
 
   useEffect(() => {
     const { contract } = state;
@@ -33,6 +36,7 @@ const AllVoters = () => {
         votersArray.push(data);
       }
       setVoters(votersArray);
+      setAllVoters(votersArray);
 
       //..........get center data
       let centersArray = [];
@@ -47,6 +51,11 @@ const AllVoters = () => {
       }
       setCentersInfo(centersArray);
 
+      //set constituency data
+      const uniqueConstituency = [...new Set(centersArray.map((item) => item.constituencyName))];
+      setConstituencyInfo(uniqueConstituency);
+      // console.log(uniqueConstituency);
+
       //get existing candidate NID
       const candidateNID = await contract.candidatesInfoContract?.getAllCandidateNID();
       let arr = [];
@@ -60,7 +69,25 @@ const AllVoters = () => {
     contract && fetchInitialData();
   }, [state, deleteStatus]);
 
-  if (voters?.length === 0) {
+  useEffect(() => {
+    setVoters([]);
+
+    if (option === "All Constituency") {
+      setVoters(allVoters);
+    } else {
+      const center = centersInfo?.filter((cn) => cn.constituencyName === option);
+      let centerIDs = [];
+      center.forEach((element) => {
+        centerIDs.push(element.centerID.toNumber());
+      });
+      // console.log(centerIDs);
+
+      const filteredVoter = allVoters?.filter((voter) => centerIDs.includes(voter.centerID.toNumber()));
+      setVoters(filteredVoter);
+    }
+  }, [option, allVoters, centersInfo]);
+
+  if (allVoters?.length === 0 && centersInfo?.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
@@ -177,30 +204,50 @@ const AllVoters = () => {
           <div>
             <h2>Total Voter: {voters?.length}</h2>
           </div>
-          <label className="sr-only">Search</label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+          <div className="flex">
+            {/* <label className="sr-only">Search</label> */}
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="table-search-people"
+                className="block p-3 me-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-80 bg-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Search for Voter"
+                onKeyUp={searchPeople}
+              />
             </div>
-            <input
-              type="text"
-              id="table-search-people"
-              className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-80 bg-white focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Search for Voter"
-              onKeyUp={searchPeople}
-            />
+            <div className="relative">
+              <div className="form-control w-full">
+                <select id="dropDown" required className="select select-bordered w-full mb-1" onChange={(e) => setOption(e.target.value)}>
+                  <option selected value={"All Constituency"}>
+                    All Constituency
+                  </option>
+                  {constituencyInfo?.length > 0 ? (
+                    constituencyInfo.map((d, index) => (
+                      <option key={index} value={d}>
+                        {d}
+                      </option>
+                    ))
+                  ) : (
+                    <option></option>
+                  )}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <table id="peopleTable" className="w-full text-sm text-left text-gray-500">

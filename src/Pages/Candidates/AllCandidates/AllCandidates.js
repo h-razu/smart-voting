@@ -14,9 +14,11 @@ const AllCandidates = () => {
   const [voters, setVoters] = useState([]);
   const [parties, setParties] = useState([]);
   const [candidates, setCandidates] = useState([]);
+  const [allCandidates, setAllCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const [status, setStatus] = useState(false);
+  const [option, setOption] = useState("All Constituency");
 
   useEffect(() => {
     const { contract } = state;
@@ -105,12 +107,26 @@ const AllCandidates = () => {
       }
       // console.log(candidatesArr);
       setCandidates(candidatesArr);
+      setAllCandidates(candidatesArr);
     };
 
     contract && getInitialData();
   }, [state, constituencyData, voters, status]);
 
-  if (candidates.length === 0) {
+  useEffect(() => {
+    setCandidates([]);
+
+    if (option === "All Constituency") {
+      setCandidates(allCandidates);
+    } else {
+      const filtered = allCandidates?.filter((candidate) => candidate.standingConstituency.includes(option));
+      // console.log(filtered);
+
+      setCandidates(filtered);
+    }
+  }, [option, allCandidates]);
+
+  if (allCandidates.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
@@ -180,6 +196,24 @@ const AllCandidates = () => {
         <div className="flex items-center justify-between py-4">
           <div>
             <h2> Total Candidates: {candidates.length}</h2>
+          </div>
+          <div className="relative">
+            <div className="form-control w-full">
+              <select id="dropDown" required className="select select-bordered w-full mb-1" onChange={(e) => setOption(e.target.value)}>
+                <option selected value={"All Constituency"}>
+                  All Constituency
+                </option>
+                {constituencyData?.length > 0 ? (
+                  constituencyData.map((d, index) => (
+                    <option key={index} value={d.constituencyName}>
+                      {d.constituencyName}
+                    </option>
+                  ))
+                ) : (
+                  <option></option>
+                )}
+              </select>
+            </div>
           </div>
         </div>
         <table id="peopleTable" className="w-full text-sm text-left text-gray-500">

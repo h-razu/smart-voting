@@ -122,6 +122,10 @@ const AddCandidate = () => {
     contract && fetchCandidateData();
   }, [state, constituencyInfo, voters]);
 
+  if (constituencyInfo.length === 0 || voters.length === 0 || existingCandidates.length === 0) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
   //search query
   const getCandidateData = (event) => {
     event.preventDefault();
